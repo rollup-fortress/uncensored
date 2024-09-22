@@ -22,7 +22,9 @@ describe('UncensoredSDK - OPStack', () => {
     expect(l1ForceTx.fromSender).toBe(true);
 
     // Check for the correct function selector
-    const depositTxSelector = getFunctionSelector('depositTransaction(address,uint256,uint64,bool,bytes)');
+    const depositTxSelector = getFunctionSelector(
+      'depositTransaction(address,uint256,uint64,bool,bytes)',
+    );
     expect(l1ForceTx.data.startsWith(depositTxSelector)).toBe(true);
   });
 });

@@ -2,7 +2,7 @@ import { Address } from 'viem';
 
 export enum AdapterType {
   OPStack = 'opstack',
-  Custom = 'custom'
+  Custom = 'custom',
 }
 
 export interface Config {
