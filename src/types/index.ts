@@ -15,7 +15,7 @@ export interface L2Transaction {
   chainId: number;
   to: string;
   data: string;
-  value: string;
+  value: bigint;
   gasLimit: string;
 }
 

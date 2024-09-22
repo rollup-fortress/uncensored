@@ -5,11 +5,11 @@ import { optimism } from 'viem/chains';
 describe('UncensoredSDK', () => {
   const sdk = new UncensoredSDK();
 
-  it('should transform an L2 transaction to an L1 force transaction', () => {
+  it('should transform an L2 tx to an L1 force tx for optimism', () => {
     const l2Tx: L2Transaction = {
       to: '0xabcdef0123456789abcdef0123456789abcdef01',
       data: '0x1234',
-      value: '1000000000000000000',
+      value: BigInt('1000000000000000000'),
       gasLimit: '1000000',
       chainId: optimism.id,
     };
@@ -25,7 +25,7 @@ describe('UncensoredSDK', () => {
     const l2Tx: L2Transaction = {
       to: '0xabcdef0123456789abcdef0123456789abcdef01',
       data: '0x1234',
-      value: '1000000000000000000',
+      value: BigInt('1000000000000000000'),
       gasLimit: '1000000',
       chainId: 1, // Unsupported chain ID
     };
