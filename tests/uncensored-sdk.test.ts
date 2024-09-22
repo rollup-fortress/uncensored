@@ -1,9 +1,9 @@
 import { UncensoredSDK } from '../src/index';
-import { L2Transaction } from '../src/types';
+import { L2Transaction, AdapterType } from '../src/types';
 import { optimism } from 'viem/chains';
 
 describe('UncensoredSDK', () => {
-  const sdk = new UncensoredSDK([optimism.id]);
+  const sdk = new UncensoredSDK();
 
   it('should transform an L2 transaction to an L1 force transaction', () => {
     const l2Tx: L2Transaction = {
@@ -22,7 +22,6 @@ describe('UncensoredSDK', () => {
   });
 
   it('should throw an error for unsupported chain ID', () => {
-    const sdk = new UncensoredSDK([]);
     const l2Tx: L2Transaction = {
       to: '0xabcdef0123456789abcdef0123456789abcdef01',
       data: '0x1234',
@@ -32,5 +31,16 @@ describe('UncensoredSDK', () => {
     };
 
     expect(() => sdk.transformTransaction(l2Tx)).toThrow('Unsupported chain ID: 1');
+  });
+
+  it('should allow custom configurations', () => {
+    const customSdk = new UncensoredSDK({
+      12345: {
+        type: AdapterType.OPStack,
+        optimismPortalAddress: '0x1234567890123456789012345678901234567890',
+      },
+    });
+
+    expect(customSdk.getSupportedChainIds()).toContain(12345);
   });
 });

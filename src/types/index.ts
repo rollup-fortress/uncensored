@@ -1,6 +1,12 @@
 import { Address } from 'viem';
 
+export enum AdapterType {
+  OPStack = 'opstack',
+  Custom = 'custom'
+}
+
 export interface Config {
+  type: AdapterType;
   optimismPortalAddress: Address;
 }
 
