@@ -17,7 +17,7 @@ describe('UncensoredSDK', () => {
     const l1Tx = sdk.transformTransaction(l2Tx);
 
     expect(l1Tx.to).toBe('0xbeb5fc579115071764c7423a4f12edde41f106ed');
-    expect(l1Tx.value).toBe(BigInt('1000000000000000000'));
+    expect(l1Tx.value.toString()).toBe('0');
     expect(l1Tx.data).toMatch(/^0x/);
   });
 

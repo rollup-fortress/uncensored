@@ -18,7 +18,7 @@ describe('UncensoredSDK - OPStack', () => {
     const l1ForceTx = sdk.transformTransaction(l2Tx);
 
     expect(l1ForceTx.to).toBe('0xbeb5fc579115071764c7423a4f12edde41f106ed');
-    expect(l1ForceTx.value).toBe(l2Tx.value);
+    expect(l1ForceTx.value.toString()).toBe('0');
     expect(l1ForceTx.fromSender).toBe(true);
 
     // Check for the correct function selector

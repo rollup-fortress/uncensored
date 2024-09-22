@@ -37,7 +37,7 @@ export class OPStackAdapter {
     return {
       to: this.config.optimismPortalAddress,
       data: depositTxData,
-      value: BigInt(l2Tx.value),
+      value: BigInt(0),
       fromSender: true,
     };
   }
