@@ -1,22 +1,28 @@
-import { Address, Abi } from 'viem';
+import { Address } from 'viem';
+
+export enum AdapterType {
+  OPStack = 'opstack',
+  Custom = 'custom',
+}
 
 export interface Config {
-  from: Address;
-  to: Address; // L1 bridge contract address
-  abi: Abi;
-  // Add other configuration options as needed
+  type: AdapterType;
+  optimismPortalAddress: Address;
 }
 
 export interface L2Transaction {
-  to: Address;
+  // The chain ID of the L2 network
+  chainId: number;
+  to: string;
   data: string;
   value: bigint;
-  // Add other L2 transaction properties as needed
+  gasLimit: string;
 }
 
 export interface L1ForceTransaction {
-  to: Address; // L1 bridge contract address
+  to: Address;
   data: string;
   value: bigint;
-  // Add other L1 force transaction properties as needed
+  // If true, the L1 transaction must be sent from the sender address intended to be the L2 transaction sender
+  fromSender?: boolean;
 }
