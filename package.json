@@ -1,0 +1,26 @@
+{
+  "name": "uncensored-sdk",
+  "version": "0.1.0",
+  "description": "SDK for enhancing censorship resistance of L2 transactions",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "jest",
+    "lint": "eslint src tests"
+  },
+  "keywords": ["ethereum", "l2", "l1", "optimism", "sdk"],
+  "license": "MIT",
+  "devDependencies": {
+    "@types/jest": "^29.5.1",
+    "@typescript-eslint/eslint-plugin": "^5.59.1",
+    "@typescript-eslint/parser": "^5.59.1",
+    "eslint": "^8.39.0",
+    "jest": "^29.5.0",
+    "ts-jest": "^29.1.0",
+    "typescript": "^5.0.4"
+  },
+  "dependencies": {
+    "viem": "^2.0.0"
+  }
+}
