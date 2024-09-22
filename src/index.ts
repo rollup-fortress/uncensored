@@ -1,16 +1,26 @@
 import { OptimismAdapter } from './adapters/optimism';
-import { Config, L2Transaction, L1ForceTransaction } from './types';
+import { L2Transaction, L1ForceTransaction } from './types';
+import { CHAIN_CONFIGS } from './constants';
 
 export class UncensoredSDK {
-  private adapter: OptimismAdapter;
+  private adapters: Map<number, OptimismAdapter>;
 
-  constructor(config: Config) {
-    this.adapter = new OptimismAdapter(config);
+  constructor(chainIds: number[]) {
+    this.adapters = new Map();
+    for (const chainId of chainIds) {
+      const config = CHAIN_CONFIGS[chainId];
+      if (!config) {
+        throw new Error(`Unsupported chain ID: ${chainId}`);
+      }
+      this.adapters.set(chainId, new OptimismAdapter(config));
+    }
   }
 
-  public transformToForceTransaction(l2Tx: L2Transaction): L1ForceTransaction {
-    return this.adapter.transform(l2Tx);
+  public transformTransaction(l2Tx: L2Transaction): L1ForceTransaction {
+    const adapter = this.adapters.get(l2Tx.chainId);
+    if (!adapter) {
+      throw new Error(`Unsupported chain ID: ${l2Tx.chainId}`);
+    }
+    return adapter.transform(l2Tx);
   }
 }
-
-export { Config, L2Transaction, L1ForceTransaction };
