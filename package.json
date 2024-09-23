@@ -1,6 +1,6 @@
 {
   "name": "@rollup-uncensored/sdk",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "SDK for enhancing censorship resistance of L2 transactions",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
@@ -37,7 +37,6 @@
     "typescript": "^5.3.3"
   },
   "dependencies": {
-    "viem": "^2.7.9",
-    "webauthn-p256": "0.0.10"
+    "viem": "^2.7.9"
   }
 }
