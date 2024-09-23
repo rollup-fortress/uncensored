@@ -32,11 +32,11 @@ export class UncensoredSDK {
   }
 
   /**
-   * Get the L2 transaction hashes for a given L1 transaction receipt. 
+   * Get the L2 transaction hashes for a given L1 transaction receipt.
    * Developers can monitor the status of this tx by using the returned hashes.
-   * @param txReceipt 
-   * @param chainId 
-   * @returns 
+   * @param txReceipt
+   * @param chainId
+   * @returns
    */
   public getL2TxHashes(txReceipt: TransactionReceipt, chainId: number): Hash[] {
     const adapter = this.adapters.get(chainId);

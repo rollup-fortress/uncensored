@@ -56,7 +56,7 @@ describe('UncensoredSDK - OPStack Adapter', () => {
       transactionIndex: 11,
     };
 
-    const l2Hashes = adapter.getL2TxHashes(receipt as any as TransactionReceipt);
+    const l2Hashes = adapter.getL2TxHashes(receipt as TransactionReceipt);
 
     expect(l2Hashes).toEqual(
       expect.arrayContaining([
