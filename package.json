@@ -1,6 +1,6 @@
 {
   "name": "@rollup-uncensored/sdk",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "SDK for enhancing censorship resistance of L2 transactions",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
