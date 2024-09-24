@@ -1,6 +1,6 @@
 import { Config, L2Transaction, L1ForceTransaction } from '../types';
 import { encodeFunctionData, Hash, TransactionReceipt } from 'viem';
-import { getL2HashFromL1DepositInfo, getTransactionDepositedEvents } from 'op-viem';
+import { getL2TransactionHashes } from 'viem/op-stack';
 
 export class OPStackAdapter {
   private config: Config;
@@ -44,13 +44,6 @@ export class OPStackAdapter {
   }
 
   public getL2TxHashes(txReceipt: TransactionReceipt): Hash[] {
-    const depositEvents = getTransactionDepositedEvents({ txReceipt });
-    return depositEvents.map(({ event, logIndex }) =>
-      getL2HashFromL1DepositInfo({
-        event,
-        logIndex,
-        blockHash: txReceipt.blockHash,
-      }),
-    );
+    return getL2TransactionHashes(txReceipt);
   }
 }
