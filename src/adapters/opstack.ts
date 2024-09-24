@@ -1,5 +1,6 @@
 import { Config, L2Transaction, L1ForceTransaction } from '../types';
-import { encodeFunctionData } from 'viem';
+import { encodeFunctionData, Hash, TransactionReceipt } from 'viem';
+import { getL2TransactionHashes } from 'viem/op-stack';
 
 export class OPStackAdapter {
   private config: Config;
@@ -40,5 +41,9 @@ export class OPStackAdapter {
       value: BigInt(0),
       fromSender: true,
     };
+  }
+
+  public getL2TxHashes(txReceipt: TransactionReceipt): Hash[] {
+    return getL2TransactionHashes(txReceipt);
   }
 }
