@@ -46,3 +46,7 @@ export class UncensoredSDK {
     return adapter.getL2TxHashes(txReceipt);
   }
 }
+
+// Export types and enums
+export { AdapterType } from './types';
+export type { Config, L2Transaction, L1ForceTransaction } from './types';
