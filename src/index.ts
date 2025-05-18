@@ -1,10 +1,11 @@
 import { OPStackAdapter } from './adapters/opstack';
-import { L2Transaction, L1ForceTransaction, Config, AdapterType } from './types';
+import { OrbitAdapter } from './adapters/orbit';
+import { L2Transaction, L1ForceTransaction, Config, OPStackConfig, OrbitConfig, AdapterType, TransformTransactionOptions } from './types';
 import { DEFAULT_CHAIN_CONFIGS } from './constants';
 import { Hash, TransactionReceipt } from 'viem';
 
 export class UncensoredSDK {
-  private adapters: Map<number, OPStackAdapter>;
+  private adapters: Map<number, OPStackAdapter | OrbitAdapter>;
 
   constructor(customConfigs: { [chainId: number]: Config } = {}) {
     this.adapters = new Map();
@@ -12,19 +13,21 @@ export class UncensoredSDK {
 
     for (const [chainId, config] of Object.entries(configs)) {
       if (config.type === AdapterType.OPStack) {
-        this.adapters.set(Number(chainId), new OPStackAdapter(config));
+        this.adapters.set(Number(chainId), new OPStackAdapter(config as OPStackConfig));
+      } else if (config.type === AdapterType.Orbit) {
+        this.adapters.set(Number(chainId), new OrbitAdapter(config as OrbitConfig));
       } else {
         throw new Error(`Unsupported adapter type for chain ID: ${chainId}`);
       }
     }
   }
 
-  public transformTransaction(l2Tx: L2Transaction): L1ForceTransaction {
+  public async transformTransaction(l2Tx: L2Transaction, options?: TransformTransactionOptions): Promise<L1ForceTransaction> {
     const adapter = this.adapters.get(l2Tx.chainId);
     if (!adapter) {
       throw new Error(`Unsupported chain ID: ${l2Tx.chainId}`);
     }
-    return adapter.transform(l2Tx);
+    return await adapter.transform(l2Tx, options);
   }
 
   public getSupportedChainIds(): number[] {

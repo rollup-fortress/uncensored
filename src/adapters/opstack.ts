@@ -1,15 +1,15 @@
-import { Config, L2Transaction, L1ForceTransaction } from '../types';
+import { OPStackConfig, L2Transaction, L1ForceTransaction, TransformTransactionOptions } from '../types';
 import { encodeFunctionData, Hash, TransactionReceipt } from 'viem';
 import { getL2TransactionHashes } from 'viem/op-stack';
 
 export class OPStackAdapter {
-  private config: Config;
+  private config: OPStackConfig;
 
-  constructor(config: Config) {
+  constructor(config: OPStackConfig) {
     this.config = config;
   }
 
-  public transform(l2Tx: L2Transaction): L1ForceTransaction {
+  public async transform(l2Tx: L2Transaction, _options?: TransformTransactionOptions): Promise<L1ForceTransaction> {
     const depositTxData = encodeFunctionData({
       abi: [
         {

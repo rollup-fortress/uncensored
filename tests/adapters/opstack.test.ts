@@ -9,7 +9,7 @@ describe('UncensoredSDK - OPStack Adapter', () => {
     type: AdapterType.OPStack,
   });
 
-  it('should transform an L2 tx to an L1 force tx', () => {
+  it('should transform an L2 tx to an L1 force tx', async () => {
     const l2Tx: L2Transaction = {
       to: '0xabcdef1234567890abcdef1234567890abcdef12',
       data: '0x1234567890abcdef',
@@ -18,7 +18,7 @@ describe('UncensoredSDK - OPStack Adapter', () => {
       chainId: optimism.id,
     };
 
-    const l1ForceTx = adapter.transform(l2Tx);
+    const l1ForceTx = await adapter.transform(l2Tx);
 
     expect(l1ForceTx.to).toBe('0x16fc5058f25648194471939df75cf27a2fdc48bc');
     expect(l1ForceTx.value.toString()).toBe('0');
