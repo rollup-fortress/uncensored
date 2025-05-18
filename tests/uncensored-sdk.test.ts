@@ -5,7 +5,7 @@ import { optimism } from 'viem/chains';
 describe('UncensoredSDK', () => {
   const sdk = new UncensoredSDK();
 
-  it('should transform an L2 tx to an L1 force tx for optimism', () => {
+  it('should transform an L2 tx to an L1 force tx for optimism', async () => {
     const l2Tx: L2Transaction = {
       to: '0xabcdef0123456789abcdef0123456789abcdef01',
       data: '0x1234',
@@ -14,14 +14,14 @@ describe('UncensoredSDK', () => {
       chainId: optimism.id,
     };
 
-    const l1Tx = sdk.transformTransaction(l2Tx);
+    const l1Tx = await sdk.transformTransaction(l2Tx);
 
     expect(l1Tx.to).toBe('0xbeb5fc579115071764c7423a4f12edde41f106ed');
     expect(l1Tx.value.toString()).toBe('0');
     expect(l1Tx.data).toMatch(/^0x/);
   });
 
-  it('should throw an error for unsupported chain ID', () => {
+  it('should throw an error for unsupported chain ID', async () => {
     const l2Tx: L2Transaction = {
       to: '0xabcdef0123456789abcdef0123456789abcdef01',
       data: '0x1234',
@@ -30,7 +30,7 @@ describe('UncensoredSDK', () => {
       chainId: 1, // Unsupported chain ID
     };
 
-    expect(() => sdk.transformTransaction(l2Tx)).toThrow('Unsupported chain ID: 1');
+    await expect(sdk.transformTransaction(l2Tx)).rejects.toThrow('Unsupported chain ID: 1');
   });
 
   it('should allow custom configurations', () => {
